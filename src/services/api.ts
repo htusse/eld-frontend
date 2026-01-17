@@ -6,7 +6,7 @@ import axios from 'axios';
 import type { PlanTripRequest, PlanTripResponse } from '../types';
 
 // API base URL - configure based on environment
-const API_BASE_URL = import.meta.env.VITE_API_URL;
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -45,7 +45,7 @@ apiClient.interceptors.response.use(
  * Plan a trip with HOS-compliant schedule
  */
 export const planTrip = async (request: PlanTripRequest): Promise<PlanTripResponse> => {
-  const response = await apiClient.post<PlanTripResponse>('/plan-trip', request);
+  const response = await apiClient.post<PlanTripResponse>('/plan-trip/', request);
   return response.data;
 };
 
