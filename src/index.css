@@ -1,0 +1,395 @@
+/* ELD Trip Planner - Clean UI Styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Primary Color - Teal */
+  --primary: rgb(0, 128, 128);
+  --primary-light: rgba(0, 128, 128, 0.1);
+  --primary-hover: rgb(0, 110, 110);
+  
+  /* Neutral Colors */
+  --text-primary: #1a1a2e;
+  --text-secondary: #6b7280;
+  --bg-light: #f8fafc;
+  --bg-white: #ffffff;
+  --border-color: #e5e7eb;
+  
+  /* Spacing */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+  
+  color-scheme: light;
+  color: var(--text-primary);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--bg-light);
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Glass Card Effect */
+.glass-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.glass-card-dark {
+  background: var(--primary);
+  border: none;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 4px 20px rgba(0, 128, 128, 0.2);
+}
+
+/* Truck Loading Animation */
+@keyframes truck-drive {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(calc(100vw + 100%)); }
+}
+
+@keyframes road-move {
+  0% { background-position: 0 0; }
+  100% { background-position: -200px 0; }
+}
+
+.loading-truck-container {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  overflow: hidden;
+  margin: 2rem 0;
+}
+
+.loading-road {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 20px;
+  background: repeating-linear-gradient(
+    90deg,
+    #374151 0px,
+    #374151 30px,
+    var(--primary) 30px,
+    var(--primary) 50px
+  );
+  animation: road-move 0.5s linear infinite;
+  border-radius: 4px;
+}
+
+/* Fade In Up Animation */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fade-in-up 0.5s ease-out forwards;
+}
+
+/* Step Progress */
+.step-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 2rem;
+  padding: 0 0.5rem;
+}
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.step-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+/* Mobile step progress */
+@media (max-width: 480px) {
+  .step-circle {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .step-circle svg {
+    font-size: 20px !important;
+  }
+  
+  .step-connector {
+    width: 40px !important;
+  }
+  
+  .step-label {
+    font-size: 0.65rem !important;
+    max-width: 60px !important;
+  }
+}
+
+.step-circle.active {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 128, 128, 0.3);
+}
+
+.step-circle.completed {
+  background: var(--primary);
+  color: white;
+}
+
+.step-circle.inactive {
+  background: var(--bg-light);
+  color: #9ca3af;
+  border: 2px dashed #d1d5db;
+}
+
+.step-connector {
+  width: 80px;
+  height: 3px;
+  background: var(--border-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.step-connector.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: var(--primary);
+  animation: step-fill 0.5s ease forwards;
+}
+
+@keyframes step-fill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.step-label {
+  margin-top: 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-align: center;
+  max-width: 80px;
+}
+
+/* Leaflet map fixes */
+.leaflet-container {
+  font-family: inherit;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.custom-marker {
+  background: transparent;
+  border: none;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-hover);
+}
+
+/* Stat Card Hover */
+.stat-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Button Primary */
+.btn-primary {
+  background: var(--primary);
+  border: none;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 4px 12px rgba(0, 128, 128, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Feature Cards */
+.feature-card {
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  background: var(--primary-light);
+  border: 1px solid rgba(0, 128, 128, 0.2);
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  background: rgba(0, 128, 128, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Map Container */
+.map-container {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Log Sheet Card */
+.log-sheet-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.log-sheet-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Print styles for log sheets */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 600px) {
+  /* Reduce padding on mobile */
+  .glass-card {
+    border-radius: var(--radius-lg);
+  }
+  
+  /* Stat cards - smaller on mobile */
+  .stat-card {
+    padding: 1rem;
+  }
+  
+  .stat-card h4 {
+    font-size: 1.5rem !important;
+  }
+  
+  /* Map container full width on mobile */
+  .map-container {
+    border-radius: var(--radius-md);
+    min-height: 300px !important;
+  }
+  
+  /* Log sheet cards */
+  .log-sheet-card {
+    margin-bottom: 1rem;
+  }
+  
+  /* Loading animation smaller on mobile */
+  .loading-truck-container {
+    height: 80px;
+    margin: 1rem 0;
+  }
+  
+  /* Feature cards tighter padding */
+  .feature-card {
+    padding: 1rem;
+  }
+}
+
+/* Small mobile (< 400px) */
+@media (max-width: 400px) {
+  body {
+    font-size: 14px;
+  }
+  
+  .step-progress {
+    transform: scale(0.9);
+    margin-bottom: 1rem;
+  }
+}
+
+/* Touch-friendly tap targets */
+@media (hover: none) and (pointer: coarse) {
+  button, 
+  .MuiButton-root,
+  .MuiIconButton-root,
+  .MuiTab-root {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Larger touch targets for inputs */
+  input, 
+  .MuiInputBase-input {
+    min-height: 44px;
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
+}
+
+/* Safe area insets for notched phones */
+@supports (padding-top: env(safe-area-inset-top)) {
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
